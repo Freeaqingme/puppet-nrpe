@@ -26,12 +26,14 @@ class nrpe::params {
       x86_64  => '/usr/lib64/nagios/plugins',
       default => '/usr/lib/nagios/plugins',
     },
+    /(?:FreeBSD)/                                       => '/usr/local/libexec/nagios',
     default                                             => '/usr/lib/nagios/plugins',
   }
 
   $pluginspackage = $::operatingsystem ? {
     /(?i:RedHat|Centos|Scientific|Fedora|Amazon|Linux)/ => 'nagios-plugins-all',
-    default                                             => 'nagios-plugins',
+    /(?i:FreeBSD)/                                      => 'net-mgmt/nagios-plugins', 
+   default                                              => 'nagios-plugins',
   }
 
   # Needed for ntp checks
@@ -59,11 +61,13 @@ class nrpe::params {
       '12.3'   => 'nrpe',
       default  => 'nagios-nrpe',
     },
+    /(?i:FreeBSD)/            => 'net-mgmt/nrpe2',
     default                   => 'nrpe',
   }
 
   $service = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'nagios-nrpe-server',
+    /(?i:FreeBSD)/            => 'nrpe2',
     default                   => 'nrpe',
   }
 
@@ -95,7 +99,8 @@ class nrpe::params {
       '12.3'   => '/etc/nrpe.cfg',
       default  => '/etc/nagios/nrpe.cfg',
     },
-    default => '/etc/nagios/nrpe.cfg',
+    /(?i:FreeBSD)/ => '/etc/nrpe.cfg',
+    default        => '/etc/nagios/nrpe.cfg',
   }
 
   $config_file_mode = $::operatingsystem ? {
@@ -107,11 +112,13 @@ class nrpe::params {
   }
 
   $config_file_group = $::operatingsystem ? {
-    default => 'root',
+    /(?i:FreeBSD)/            => 'wheel',
+    default                   => 'root',
   }
 
   $config_file_init = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => '/etc/default/nagios-nrpe-server',
+    /(?i:FreeBSD)/            => '/etc/defaults/nrpe',
     default                   => '/etc/sysconfig/nrpe',
   }
 

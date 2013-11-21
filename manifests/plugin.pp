@@ -20,7 +20,7 @@ define nrpe::plugin (
     file { "Nrpe_plugin_${name}":
       path    => "${nrpe::pluginsdir}/${name}",
       owner   => root,
-      group   => root,
+      group   => wheel,
       mode    => '0755',
       ensure  => $ensure,
       require => Package['nrpe'],
