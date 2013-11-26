@@ -77,7 +77,8 @@ class nrpe::params {
   }
 
   $process = $::operatingsystem ? {
-    default => 'nrpe',
+    /(?i:FreeBSD)/ => 'nrpe2',
+    default        => 'nrpe',
   }
 
   $process_args = $::operatingsystem ? {
