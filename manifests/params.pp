@@ -99,7 +99,7 @@ class nrpe::params {
       '12.3'   => '/etc/nrpe.cfg',
       default  => '/etc/nagios/nrpe.cfg',
     },
-    /(?i:FreeBSD)/ => '/etc/nrpe.cfg',
+    /(?i:FreeBSD)/ => '/opt/static/local_etc/nrpe.cfg',
     default        => '/etc/nagios/nrpe.cfg',
   }
 
