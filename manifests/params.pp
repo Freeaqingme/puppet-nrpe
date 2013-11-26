@@ -77,12 +77,11 @@ class nrpe::params {
   }
 
   $process = $::operatingsystem ? {
-    /(?i:FreeBSD)/ => 'ruby19',
+    /(?i:FreeBSD)/ => 'nrpe2',
     default        => 'nrpe',
   }
 
   $process_args = $::operatingsystem ? {
-    /(?i:FreeBSD)/ => 'puppet agent',
     default => '',
   }
 
