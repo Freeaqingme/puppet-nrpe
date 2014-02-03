@@ -61,7 +61,7 @@ class nrpe::params {
       '12.3'   => 'nrpe',
       default  => 'nagios-nrpe',
     },
-    /(?i:FreeBSD)/            => 'net-mgmt/nrpe2',
+    /(?i:FreeBSD)/            => 'net-mgmt/nrpe',
     default                   => 'nrpe',
   }
 
@@ -100,7 +100,7 @@ class nrpe::params {
       '12.3'   => '/etc/nrpe.cfg',
       default  => '/etc/nagios/nrpe.cfg',
     },
-    /(?i:FreeBSD)/ => '/opt/static/local_etc/nrpe.cfg',
+    /(?i:FreeBSD)/ => '/usr/local/etc/nrpe.cfg',
     default        => '/etc/nagios/nrpe.cfg',
   }
 
