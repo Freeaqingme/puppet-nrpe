@@ -26,14 +26,16 @@ class nrpe::params {
       x86_64  => '/usr/lib64/nagios/plugins',
       default => '/usr/lib/nagios/plugins',
     },
-    /(?:FreeBSD)/                                       => '/usr/local/libexec/nagios',
-    default                                             => '/usr/lib/nagios/plugins',
+    /(?i:FreeBSD)/ => '/usr/local/libexec/nagios',
+    /(?i:Solaris)/ => '/opt/csw/libexec/nagios-plugins',
+    default        => '/usr/lib/nagios/plugins',
   }
 
   $pluginspackage = $::operatingsystem ? {
     /(?i:RedHat|Centos|Scientific|Fedora|Amazon|Linux)/ => 'nagios-plugins-all',
-    /(?i:FreeBSD)/                                      => 'net-mgmt/nagios-plugins', 
-   default                                              => 'nagios-plugins',
+    /(?i:FreeBSD)/                                      => 'net-mgmt/nagios-plugins',
+    /(?i:Solaris)/                                      => 'CSWnagios-plugins',
+    default                                             => 'nagios-plugins',
   }
 
   # Needed for ntp checks
@@ -68,6 +70,7 @@ class nrpe::params {
   $service = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'nagios-nrpe-server',
     /(?i:FreeBSD)/            => 'nrpe2',
+    /(?i:Solaris)/            => 'network/cswnrpe',
     default                   => 'nrpe',
   }
 
@@ -87,6 +90,7 @@ class nrpe::params {
 
   $process_user = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'nagios',
+    /(?i:Solaris)/            => 'nagios',
     default                   => 'nrpe',
   }
 
@@ -101,6 +105,7 @@ class nrpe::params {
       default  => '/etc/nagios/nrpe.cfg',
     },
     /(?i:FreeBSD)/ => '/usr/local/etc/nrpe.cfg',
+    /(?i:Solaris)/ => '/etc/opt/csw/nrpe.cfg',
     default        => '/etc/nagios/nrpe.cfg',
   }
 
@@ -126,6 +131,7 @@ class nrpe::params {
   $pid_file = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/                           => '/var/run/nagios/nrpe.pid',
     /(?i:Centos|RedHat|Scientific|Fedora|Amazon|Linux)/ => '/var/run/nrpe/nrpe.pid',
+    /(?i:Solaris)/                                      => '/var/run/nrpe.pid',
     default                                             => '/var/run/nrpe/nrpe.pid',
   }
 
